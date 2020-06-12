@@ -3,7 +3,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>io.github.aperez9</groupId>
     <artifactId>degiro-java-client</artifactId>
-    <version>1.1.1</version>
+    <version>1.1.2</version>
     <packaging>jar</packaging>
     <name>Unofficial DeGiro Api</name>
     <description>The DeGiro java api client makes it easier to automate DeGiro stock broker actions.</description>

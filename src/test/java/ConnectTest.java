@@ -6,6 +6,7 @@ import cat.indiketa.degiro.utils.DCredentials;
 import com.google.common.collect.Lists;
 import com.google.gson.GsonBuilder;
 import org.junit.Assert;
+import org.junit.BeforeClass;
 import org.junit.Ignore;
 import org.junit.Test;
 
@@ -17,57 +18,45 @@ import java.util.NoSuchElementException;
 @Ignore
 public class ConnectTest {
 
-    @Test
-    public void newInstanceTest() {
-        DCredentials creds = getCredentials();
-        DeGiro degiro = DeGiroFactory.newInstance(creds);
-        Assert.assertNotNull(degiro);
+    static DeGiro degiro;
+
+    @BeforeClass
+    public static void setUp() {
+        degiro = DeGiroFactory.newInstance(getCredentials());
     }
 
     @Test
     public void ordersTest() throws DeGiroException {
-        DCredentials creds = getCredentials();
-        DeGiro degiro = DeGiroFactory.newInstance(creds);
         List<DOrder> orders = degiro.getOrders();
         Assert.assertNotNull(orders);
     }
 
     @Test
     public void ordersHistoryTest() throws DeGiroException {
-        DCredentials creds = getCredentials();
-        DeGiro degiro = DeGiroFactory.newInstance(creds);
         DOrdersHistory history = degiro.getOrdersHistory(ZonedDateTime.now().minusDays(5), ZonedDateTime.now());
         Assert.assertNotNull(history);
     }
 
     @Test
     public void porfolioTest() throws DeGiroException {
-        DCredentials creds = getCredentials();
-        DeGiro degiro = DeGiroFactory.newInstance(creds);
         DPortfolio porfolio = degiro.getPortfolio();
         Assert.assertNotNull(porfolio);
     }
 
     @Test
     public void porfolioSummaryTest() throws DeGiroException {
-        DCredentials creds = getCredentials();
-        DeGiro degiro = DeGiroFactory.newInstance(creds);
         DPortfolioSummary porfolioSummary = degiro.getPortfolioSummary();
         Assert.assertNotNull(porfolioSummary);
     }
 
     @Test
     public void cashFundsTest() throws DeGiroException {
-        DCredentials creds = getCredentials();
-        DeGiro degiro = DeGiroFactory.newInstance(creds);
         DCashFunds cashFunds = degiro.getCashFunds();
         Assert.assertNotNull(cashFunds);
     }
 
     @Test
     public void lastTransactionsTest() throws DeGiroException {
-        DCredentials creds = getCredentials();
-        DeGiro degiro = DeGiroFactory.newInstance(creds);
         DLastTransactions lastTransactions = degiro.getLastTransactions();
         Assert.assertNotNull(lastTransactions);
 
@@ -80,9 +69,6 @@ public class ConnectTest {
 
     @Test
     public void searchTest() throws DeGiroException {
-        DCredentials creds = getCredentials();
-        DeGiro degiro = DeGiroFactory.newInstance(creds);
-
         // Search products by text, signature:
         // DProductSearch searchProducts(String text, DProductType type, int limit, int offset);
         DProductSearch ps = degiro.searchProducts("apple", DProductType.ALL, 10, 0);
@@ -94,9 +80,6 @@ public class ConnectTest {
 
     @Test
     public void productsTest() throws DeGiroException {
-        DCredentials creds = getCredentials();
-        DeGiro degiro = DeGiroFactory.newInstance(creds);
-
         // Get product info by id, signature:
         // DProducts getProducts(List<Long> productIds);
         List<String> productIds = Lists.newArrayList();
@@ -117,9 +100,6 @@ public class ConnectTest {
     @Test
     @Ignore
     public void checkOrderTest() throws DeGiroException {
-        DCredentials creds = getCredentials();
-        DeGiro degiro = DeGiroFactory.newInstance(creds);
-
         // Generate a new order. Signature:
         DNewOrder order = new DNewOrder(DOrderAction.BUY, DOrderType.LIMITED, DOrderTime.DAY, 121032, 20, new BigDecimal("0.10"), null);
         DOrderConfirmation confirmation = degiro.checkOrder(order);
@@ -130,8 +110,6 @@ public class ConnectTest {
     @Test
     @Ignore
     public void orderTest() throws DeGiroException {
-        DCredentials creds = getCredentials();
-        DeGiro degiro = DeGiroFactory.newInstance(creds);
 
         // Generamos la orden
         DNewOrder newOrder = new DNewOrder(DOrderAction.BUY, DOrderType.LIMITED, DOrderTime.DAY,
@@ -171,9 +149,6 @@ public class ConnectTest {
     @Test
     @Ignore
     public void priceListenerTest() throws DeGiroException, InterruptedException {
-        DCredentials creds = getCredentials();
-        DeGiro degiro = DeGiroFactory.newInstance(creds);
-
         degiro.setPriceListener(price -> System.out.println(new GsonBuilder().setPrettyPrinting().create().toJson(price)));
 
         // Create a vwdIssueId list. Note that vwdIssueId is NOT a productId (vwdIssueId is a DProduct field).
@@ -198,9 +173,6 @@ public class ConnectTest {
     @Test
     @Ignore
     public void priceListenerByProductTest() throws DeGiroException, InterruptedException {
-        DCredentials creds = getCredentials();
-        DeGiro degiro = DeGiroFactory.newInstance(creds);
-
         degiro.setPriceListener(price -> System.out.println(new GsonBuilder().setPrettyPrinting().create().toJson(price)));
 
         // Create a vwdIssueId list. Note that vwdIssueId is NOT a productId (vwdIssueId is a DProduct field).
@@ -216,7 +188,7 @@ public class ConnectTest {
         }
     }
 
-    private DCredentials getCredentials() {
+    private static DCredentials getCredentials() {
         return new DCredentials() {
             @Override
             public String getUsername() {

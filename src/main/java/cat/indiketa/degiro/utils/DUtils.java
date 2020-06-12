@@ -91,7 +91,7 @@ public class DUtils {
                         DPortfolioSummary.class.getMethod(methodName, BigDecimal.class).invoke(portfolioSummary, bdValue);
                         break;
                     case "reportCreationTime":
-                        portfolioSummary.setReportCreationTime(DATE_FORMAT2.parse(value.getValueString()));
+                        portfolioSummary.setReportCreationTime(HM_FORMAT.parse(value.getValueString()));
                         break;
                     case "freeSpaceNew":
                         BigDecimal bdMValue = value.getValueMapDecimal();
@@ -663,7 +663,6 @@ public class DUtils {
             try {
                 d = DATE_TIME_FORMAT.parse(value);
             } catch (ParseException e) {
-                DLog.MANAGER.warn("Date not parseable: " + value, e);
                 try {
                     d = DATE_FORMAT.parse(value);
                 } catch (ParseException e2) {
