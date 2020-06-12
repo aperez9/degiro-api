@@ -101,7 +101,7 @@ public class ConnectTest {
     @Ignore
     public void checkOrderTest() throws DeGiroException {
         // Generate a new order. Signature:
-        DNewOrder order = new DNewOrder(DOrderAction.BUY, DOrderType.LIMITED, DOrderTime.DAY, 121032, 20, new BigDecimal("0.10"), null);
+        DNewOrder order = new DNewOrder(DOrderAction.BUY, DOrderType.LIMITED, DOrderTime.DAY, 123513, 20, new BigDecimal("5.10"), null);
         DOrderConfirmation confirmation = degiro.checkOrder(order);
         Assert.assertNotNull(confirmation);
         Assert.assertNotNull(confirmation.getConfirmationId());

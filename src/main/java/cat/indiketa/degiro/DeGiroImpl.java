@@ -491,7 +491,7 @@ public class DeGiroImpl implements DeGiro {
 
     private String processData(String text) {
         JsonObject object = gson.fromJson(text, JsonObject.class);
-        return (object.has("data") && object.size() == 1) ? object.get("data").toString() : text;
+        return (object.has("data")) ? object.get("data").toString() : text;
     }
 
     public DSession getSession() {
