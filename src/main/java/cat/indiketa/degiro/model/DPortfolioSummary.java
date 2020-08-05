@@ -9,8 +9,8 @@ import java.util.Date;
 public class DPortfolioSummary {
 
     private BigDecimal portVal;
-    private BigDecimal cash;
-    private BigDecimal total;
+    private BigDecimal degiroCash;
+    private BigDecimal totalCash;
     private BigDecimal pl;
     private BigDecimal plToday;
     private BigDecimal freeSpace;
@@ -33,20 +33,20 @@ public class DPortfolioSummary {
         this.portVal = portVal;
     }
 
-    public BigDecimal getCash() {
-        return cash;
+    public BigDecimal getDegiroCash() {
+        return degiroCash;
     }
 
-    public void setCash(BigDecimal cash) {
-        this.cash = cash;
+    public BigDecimal getTotalCash() {
+        return totalCash;
     }
 
-    public BigDecimal getTotal() {
-        return total;
+    public void setDegiroCash(BigDecimal degiroCash) {
+        this.degiroCash = degiroCash;
     }
 
-    public void setTotal(BigDecimal total) {
-        this.total = total;
+    public void setTotalCash(BigDecimal totalCash) {
+        this.totalCash = totalCash;
     }
 
     public BigDecimal getPl() {

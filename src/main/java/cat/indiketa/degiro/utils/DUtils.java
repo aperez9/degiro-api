@@ -71,8 +71,8 @@ public class DUtils {
                 switch (value.getName()) {
 
                     case "portVal":
-                    case "cash":
-                    case "total":
+                    case "degiroCash":
+                    case "totalCash":
                     case "pl":
                     case "plToday":
                     case "freeSpace":
